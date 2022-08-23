@@ -6,7 +6,13 @@
     display: flex;
 }
 .pixel {
-    width: 16px;
-    height: 16px;
-    /* border: solid black 1px; */
+    width: 32px;
+    height: 32px;
+    border: solid black 1px;
+}
+.pixel-colored {
+    background-color: black;
+}
+.pixel:hover {
+    background-color: grey;
 }
