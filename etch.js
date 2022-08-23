@@ -1,7 +1,22 @@
 const container = document.querySelector('#container');
 let gridSize = 16;
 let color = '#000000'
-const colors = document.querySelectorAll('input[type="range"]')
+
+const colorNodes = {
+    container: document.querySelector('#color-picker'),
+    sliders: document.querySelector('#color-picker').querySelectorAll('input[type="range"]'),
+    button: document.querySelector('button[name=color-btn]'),
+    preview: document.querySelector('.color-preview')
+}
+
+function initEventListeners() {
+    for(slider of colorNodes.sliders) {
+        slider.addEventListener('input', e => {
+            setColor();
+        })
+    }
+}
+
 function updateGrid() {
     container.replaceChildren();
     for (let i = 0; i < gridSize; i++) {
@@ -36,10 +51,11 @@ function promptGridSize() {
 
 function setColor() {
     const colorArr = [];
-    for(color of colors){
+    for(color of colorNodes.sliders){
         colorArr.push(color.value);
     }
     color = rgbToHex(colorArr);
+    colorNodes.preview.style['background-color'] = color;
 }
 
 function rgbToHex(values) {
@@ -52,4 +68,5 @@ function rgbToHex(values) {
     return hex;
 }
 
+initEventListeners();
 updateGrid();
