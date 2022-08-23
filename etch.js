@@ -1,5 +1,7 @@
 const container = document.querySelector('#container');
 let gridSize = 16;
+let color = '#000000'
+const colors = document.querySelectorAll('input[type="range"]')
 function updateGrid() {
     container.replaceChildren();
     for (let i = 0; i < gridSize; i++) {
@@ -16,7 +18,8 @@ function updateGrid() {
 }
 
 function pixelEventListener(e) {
-    e.target.classList.add('pixel-colored');
+    const pixel = e.target;
+    pixel.style['background-color'] = color;
 }
 
 function promptGridSize() {
@@ -30,4 +33,23 @@ function promptGridSize() {
     gridSize = Math.floor(inp);
     updateGrid();
 }
+
+function setColor() {
+    const colorArr = [];
+    for(color of colors){
+        colorArr.push(color.value);
+    }
+    color = rgbToHex(colorArr);
+}
+
+function rgbToHex(values) {
+    const hexArr = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']
+    let hex = '#'
+    for (val of values) {
+        hex += hexArr[Math.floor(val / 16)];
+        hex += hexArr[val % 16];
+    }
+    return hex;
+}
+
 updateGrid();

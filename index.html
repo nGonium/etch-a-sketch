@@ -10,6 +10,12 @@
 </head>
 <body>
     <button onclick="promptGridSize()">Change grid size</button>
+    <div id="color-picker">
+        <button onclick="setColor()">Set color</button>
+        <input type="range" name="red" id="red" min="0" max="255" value="0" step="1">
+        <input type="range" name="green" id="green" min="0" max="255" value="0" step="1">
+        <input type="range" name="blue" id="blue" min="0" max="255" value="0" step="1">
+    </div>
     <div id="container">
 
     </div>
