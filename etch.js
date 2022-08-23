@@ -1,11 +1,11 @@
 const container = document.querySelector('#container');
 let gridSize = 16;
-let color = '#000000'
+let color = '#000000';
+let isDrawingAllowed = false;
 
 const colorNodes = {
     container: document.querySelector('#color-picker'),
     sliders: document.querySelector('#color-picker').querySelectorAll('input[type="range"]'),
-    button: document.querySelector('button[name=color-btn]'),
     preview: document.querySelector('.color-preview')
 }
 
@@ -15,6 +15,14 @@ function initEventListeners() {
             setColor();
         })
     }
+    container.addEventListener('mousedown', e => {
+        e.preventDefault();
+        isDrawingAllowed = true;
+    });
+    container.addEventListener('mouseup', e => {
+        e.preventDefault();
+        isDrawingAllowed = false;
+    });
 }
 
 function updateGrid() {
@@ -33,6 +41,7 @@ function updateGrid() {
 }
 
 function pixelEventListener(e) {
+    if(!isDrawingAllowed) return
     const pixel = e.target;
     pixel.style['background-color'] = color;
 }
