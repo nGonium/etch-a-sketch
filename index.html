@@ -9,13 +9,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button onclick="promptGridSize()">Change grid size</button>
-    <div id="color-container">
-        <div class="color-preview"></div>
-        <input type="color" name="color-picker" id="color-picker">
-    </div>
-    <div id="canvas">
+    <div id="pix-sketch">
+        <div id="toolbar">
+            <div id="color-container">
+                <input type="color" name="color-picker" id="color-picker">
+            </div>
+            <button onclick="promptGridSize()">Change grid size</button>
+            <button onclick="toggleGridLines()">Toggle grid lines</button>
+        </div>
+        <div id="canvas">
 
+        </div>        
     </div>
 </body>
 </html>

@@ -6,7 +6,6 @@ let isDrawingAllowed = false;
 const nodes = {
     canvas: document.querySelector('#canvas'),
     picker: document.querySelector('#color-picker'),
-    preview: document.querySelector('.color-preview')
 }
 
 function initEventListeners() {
@@ -24,18 +23,22 @@ function initEventListeners() {
 }
 
 function updateGrid() {
+    nodes.canvas.style['grid-template-columns'] = `repeat(${gridSize}, 1fr)`
     nodes.canvas.replaceChildren();
     for (let i = 0; i < gridSize; i++) {
-        const row = document.createElement('div');
-        row.classList.add('row');
         for (let j = 0; j < gridSize; j++) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel')
             pixel.addEventListener('mouseover', e => pixelEventListener(e))
-            row.appendChild(pixel);
+            nodes.canvas.appendChild(pixel);
         }
-        nodes.canvas.appendChild(row);
     }
+}
+
+function toggleGridLines() {
+    console.log(nodes.canvas.style['grid-gap'])
+    nodes.canvas.classList.toggle('hide-grid-lines')
+
 }
 
 function pixelEventListener(e) {
