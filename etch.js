@@ -1,29 +1,30 @@
-const container = document.querySelector('#container');
+
 let gridSize = 16;
 let color = '#000000';
 let isDrawingAllowed = false;
-const colorNodes = {
-    container: document.querySelector('#color-container'),
+
+const nodes = {
+    canvas: document.querySelector('#canvas'),
     picker: document.querySelector('#color-picker'),
     preview: document.querySelector('.color-preview')
 }
 
 function initEventListeners() {
-    colorNodes.picker.addEventListener('input', e => {
-        color = colorNodes.picker.value;
+    nodes.picker.addEventListener('input', e => {
+        color = nodes.picker.value;
     });
-    container.addEventListener('mousedown', e => {
+    nodes.canvas.addEventListener('mousedown', e => {
         e.preventDefault();
         isDrawingAllowed = true;
     });
-    container.addEventListener('mouseup', e => {
+    nodes.canvas.addEventListener('mouseup', e => {
         e.preventDefault();
         isDrawingAllowed = false;
     });
 }
 
 function updateGrid() {
-    container.replaceChildren();
+    nodes.canvas.replaceChildren();
     for (let i = 0; i < gridSize; i++) {
         const row = document.createElement('div');
         row.classList.add('row');
@@ -33,7 +34,7 @@ function updateGrid() {
             pixel.addEventListener('mouseover', e => pixelEventListener(e))
             row.appendChild(pixel);
         }
-        container.appendChild(row);
+        nodes.canvas.appendChild(row);
     }
 }
 
