@@ -3,6 +3,12 @@
     justify-content: center;
     gap: 1em;
 }
+#toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    
+}
 #canvas {
     display: grid;
     background-color: #aaa;
@@ -10,7 +16,7 @@
     border: solid #aaa 1px;
     grid-gap: 1px;
     height: 400px;
-    width: 400px;
+    min-width: 400px;
     &.hide-grid-lines {
         grid-gap: 0px;
     }
@@ -22,6 +28,21 @@
     &:hover {
         background-color: #aaa;
     }
+}
+#color-palette {
+    width: calc(18px * 8 - 2px); /* (palettewidth + gap) * number - gap */
+    max-width: calc(18px * 8 - 2px);
+    min-height: calc(18px * 3 - 2px);
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+    border: solid #ddd 1px;
+}
+.palette-item {
+    width: 16px;
+    height: 16px;
 }
 input[type='color'] {
     padding: 0;

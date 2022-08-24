@@ -8,6 +8,17 @@
   gap: 1em;
 }
 
+#toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1em;
+}
+
 #canvas {
   display: -ms-grid;
   display: grid;
@@ -17,7 +28,7 @@
   border: solid #aaa 1px;
   grid-gap: 1px;
   height: 400px;
-  width: 400px;
+  min-width: 400px;
 }
 
 #canvas.hide-grid-lines {
@@ -33,6 +44,28 @@
 
 .pixel:hover {
   background-color: #aaa;
+}
+
+#color-palette {
+  width: calc(18px * 8 - 2px);
+  /* (palettewidth + gap) * number - gap */
+  max-width: calc(18px * 8 - 2px);
+  min-height: calc(18px * 3 - 2px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  padding: 2px;
+  border: solid #ddd 1px;
+}
+
+.palette-item {
+  width: 16px;
+  height: 16px;
 }
 
 input[type='color'] {

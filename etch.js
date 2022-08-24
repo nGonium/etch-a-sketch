@@ -6,6 +6,7 @@ let isDrawingAllowed = false;
 const nodes = {
     canvas: document.querySelector('#canvas'),
     picker: document.querySelector('#color-picker'),
+    palette: document.querySelector('#color-palette')
 }
 
 function initEventListeners() {
@@ -57,6 +58,22 @@ function promptGridSize() {
     } while (!valid);
     gridSize = Math.floor(inp);
     updateGrid();
+}
+
+function saveColor() {
+    let el = document.createElement('div');
+    el.classList.add('palette-item');
+    el.style['background-color'] = color;
+    el.setAttribute('data-hex', color)
+    el.addEventListener('click', e => {
+        color = e.target.getAttribute('data-hex');
+        nodes.picker.value = color;
+    })
+    el.addEventListener('contextmenu', e => {
+        e.preventDefault()
+        e.target.remove();
+    })
+    nodes.palette.appendChild(el);
 }
 
 initEventListeners();
