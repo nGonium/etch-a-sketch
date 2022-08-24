@@ -1,15 +1,81 @@
+$primary: #777;
+$secondary: #555;
+$pressed: #444;
+
+body {
+    background-color: #282828;
+}
 #pix-sketch {
     display: flex;
     justify-content: center;
     gap: 1em;
 }
+button {
+    background-color: $secondary;
+    border: solid $pressed 1px;
+    cursor: pointer;
+    color: #fff;
+    padding: 0.25em 0.75em;
+    &:hover {
+        background-color: $pressed;
+    }
+}
+
+// Generic classes
+#toolbar, #canvas {
+    background-color: $primary;
+    border: solid $pressed 2px;
+    padding: 1em;
+}
+.tool-container {
+    background-color: $secondary;
+    
+}
+.tool-container-header {
+    background-color: $primary;
+    margin-bottom: -1px;
+    button {
+        border: solid $pressed 1px;
+        border-bottom: none;
+    }
+}
+.tool-container-body {
+    border: solid $pressed 1px;
+}
+
+// Toolbar
 #toolbar {
     display: flex;
     flex-direction: column;
     gap: 1em;
     
 }
+#color-container {
+    display: flex;
+    flex-direction: column;
+}
+#color-palette {
+    width: calc(18px * 8 - 2px); /* (palettewidth + gap) * number - gap */
+    max-width: calc(18px * 8 - 2px);
+    min-height: calc(18px * 3 - 2px);
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+}
+.palette-item {
+    width: 16px;
+    height: 16px;
+}
+.selected-palette {
+    border: solid grey 2px;
+    box-sizing: border-box;
+}
+
+// Canvas
 #canvas {
+    padding: 0;
     display: grid;
     background-color: #aaa;
     grid-template-columns: repeat(16, 1fr);
@@ -29,21 +95,8 @@
         background-color: #aaa;
     }
 }
-#color-palette {
-    width: calc(18px * 8 - 2px); /* (palettewidth + gap) * number - gap */
-    max-width: calc(18px * 8 - 2px);
-    min-height: calc(18px * 3 - 2px);
-    display: flex;
-    gap: 2px;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 2px;
-    border: solid #ddd 1px;
-}
-.palette-item {
-    width: 16px;
-    height: 16px;
-}
+
+// Backup for future slider
 input[type='color'] {
     padding: 0;
     box-sizing: border-box;
@@ -52,7 +105,4 @@ input[type='color'] {
     width: 50px;
     height: 50px;
     
-}
-button {
-    display: block;
 }

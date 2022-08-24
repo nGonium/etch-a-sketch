@@ -1,4 +1,4 @@
-
+'use-strict'
 let gridSize = 16;
 let color = '#000000';
 let isDrawingAllowed = false;
@@ -60,7 +60,7 @@ function promptGridSize() {
     updateGrid();
 }
 
-function saveColor() {
+function addToPalette() {
     let el = document.createElement('div');
     el.classList.add('palette-item');
     el.style['background-color'] = color;
@@ -68,12 +68,30 @@ function saveColor() {
     el.addEventListener('click', e => {
         color = e.target.getAttribute('data-hex');
         nodes.picker.value = color;
+        if (nodes.selectedPalette) nodes.selectedPalette.classList.remove('selected-palette');
+        nodes.selectedPalette = e.target;
+        e.target.classList.add('selected-palette')
+
     })
     el.addEventListener('contextmenu', e => {
         e.preventDefault()
         e.target.remove();
     })
-    nodes.palette.appendChild(el);
+    let child = nodes.palette.appendChild(el);
+    if (nodes.selectedPalette) nodes.selectedPalette.classList.remove('selected-palette');
+    nodes.selectedPalette = child;
+    child.classList.add('selected-palette');
+}
+
+function removeFromPalette() {
+    if(nodes.selectedPalette) {
+        nodes.selectedPalette.remove();
+        delete nodes.selectedPalette;
+    }
+}
+
+function clearPalette() {
+    nodes.palette.textContent = '';
 }
 
 initEventListeners();
