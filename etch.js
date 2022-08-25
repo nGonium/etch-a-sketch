@@ -120,16 +120,18 @@ function updateGrid() {
         for (let j = 0; j < gridSize; j++) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel')
-            pixel.addEventListener('mouseover', e => pixelEventListener(e))
+            pixel.addEventListener('mouseenter', e => pixelEventListener(e))
+            pixel.addEventListener('mousedown', e => pixelEventListener(e))
             nodes.canvas.appendChild(pixel);
         }
     }
 }
 
 function pixelEventListener(e) {
-    if(!isDrawingAllowed) return
-    const pixel = e.target;
-    pixel.style['background-color'] = color;
+    if (isDrawingAllowed || e.type === 'mousedown') {
+        const pixel = e.target;
+        pixel.style['background-color'] = color;
+    }
 }
 
 initEventListeners();
