@@ -4,15 +4,61 @@ let color = '#000000';
 let isDrawingAllowed = false;
 
 const nodes = {
-    canvas: document.querySelector('#canvas'),
-    picker: document.querySelector('#color-picker'),
-    palette: document.querySelector('#color-palette')
+    // Toolbar
+    picker: {
+        primary: document.querySelector('#color-picker')
+    },
+    palette: {
+        buttonAdd: document.querySelector('button[name="palette-add"'),
+        buttonRemove: document.querySelector('button[name="palette-remove"'),
+        buttonClear: document.querySelector('button[name="palette-clear"'),
+        body: document.querySelector('#color-palette-body')
+    },
+    gridSizer: {
+        container: document.querySelector('#grid-sizer-container'),
+        slider: document.querySelector('#grid-sizer'),
+        label: document.querySelector('#grid-sizer-container').querySelector('label'),
+        button: document.querySelector('#grid-sizer-container').querySelector('button')
+    },
+    options: {
+        toggleGridLines: document.querySelector('button[name="toggle-grid-lines"]')
+    },
+    // Canvas
+    canvas: document.querySelector('#canvas')
+
 }
 
 function initEventListeners() {
-    nodes.picker.addEventListener('input', e => {
-        color = nodes.picker.value;
+    // Toolbar
+    // Color picker
+    nodes.picker.primary.addEventListener('input', e => {
+        color = nodes.picker.primary.value;
     });
+    // Palette
+    nodes.palette.buttonAdd.addEventListener('click', e => {
+        addToPalette();
+    })
+    nodes.palette.buttonRemove.addEventListener('click', e => {
+        removeFromPalette();
+    })
+    nodes.palette.buttonClear.addEventListener('click', e => {
+        clearPalette();
+    })
+    // Options
+    nodes.options.toggleGridLines.addEventListener('click', e => {
+        toggleGridLines();
+    })
+    // Grid sizer
+    nodes.gridSizer.slider.addEventListener('input', e => {
+        const val = e.target.value;
+        nodes.gridSizer.label.textContent = `${val} x ${val}`;
+    });
+    nodes.gridSizer.button.addEventListener('click', e => {
+        gridSize = nodes.gridSizer.slider.value;
+        updateGrid();
+    })    
+
+    // Canvas 
     nodes.canvas.addEventListener('mousedown', e => {
         e.preventDefault();
         isDrawingAllowed = true;
@@ -23,6 +69,47 @@ function initEventListeners() {
     });
 }
 
+// Palette functions
+function addToPalette() {
+    const el = document.createElement('div');
+    el.classList.add('palette-item');
+    el.style['background-color'] = color;
+    el.setAttribute('data-hex', color)
+    el.addEventListener('click', e => {
+        color = e.target.getAttribute('data-hex');
+        nodes.picker.primary.value = color;
+        if (nodes.palette.selectedPalette) nodes.palette.selectedPalette.classList.remove('selected-palette');
+        nodes.palette.selectedPalette = e.target;
+        e.target.classList.add('selected-palette')
+
+    })
+    el.addEventListener('contextmenu', e => {
+        e.preventDefault()
+        e.target.remove();
+    })
+    const child = nodes.palette.body.appendChild(el);
+    if (nodes.palette.selectedPalette) nodes.palette.selectedPalette.classList.remove('selected-palette');
+    nodes.palette.selectedPalette = child;
+    child.classList.add('selected-palette');
+}
+
+function removeFromPalette() {
+    if(nodes.palette.selectedPalette) {
+        nodes.palette.selectedPalette.remove();
+        delete nodes.palette.selectedPalette;
+    }
+}
+
+function clearPalette() {
+    nodes.palette.body.textContent = '';
+}
+
+// Options functions
+function toggleGridLines() {
+    nodes.canvas.classList.toggle('hide-grid-lines')
+}
+
+// Canvas functions
 function updateGrid() {
     nodes.canvas.style['grid-template-columns'] = `repeat(${gridSize}, 1fr)`
     nodes.canvas.replaceChildren();
@@ -36,62 +123,10 @@ function updateGrid() {
     }
 }
 
-function toggleGridLines() {
-    console.log(nodes.canvas.style['grid-gap'])
-    nodes.canvas.classList.toggle('hide-grid-lines')
-
-}
-
 function pixelEventListener(e) {
     if(!isDrawingAllowed) return
     const pixel = e.target;
     pixel.style['background-color'] = color;
-}
-
-function promptGridSize() {
-    let valid = false;
-    do {
-        inp = prompt('Enter grid size (1-100)');
-        if (inp >= 1 && inp <= 100) {
-            valid = true;
-        }
-    } while (!valid);
-    gridSize = Math.floor(inp);
-    updateGrid();
-}
-
-function addToPalette() {
-    let el = document.createElement('div');
-    el.classList.add('palette-item');
-    el.style['background-color'] = color;
-    el.setAttribute('data-hex', color)
-    el.addEventListener('click', e => {
-        color = e.target.getAttribute('data-hex');
-        nodes.picker.value = color;
-        if (nodes.selectedPalette) nodes.selectedPalette.classList.remove('selected-palette');
-        nodes.selectedPalette = e.target;
-        e.target.classList.add('selected-palette')
-
-    })
-    el.addEventListener('contextmenu', e => {
-        e.preventDefault()
-        e.target.remove();
-    })
-    let child = nodes.palette.appendChild(el);
-    if (nodes.selectedPalette) nodes.selectedPalette.classList.remove('selected-palette');
-    nodes.selectedPalette = child;
-    child.classList.add('selected-palette');
-}
-
-function removeFromPalette() {
-    if(nodes.selectedPalette) {
-        nodes.selectedPalette.remove();
-        delete nodes.selectedPalette;
-    }
-}
-
-function clearPalette() {
-    nodes.palette.textContent = '';
 }
 
 initEventListeners();

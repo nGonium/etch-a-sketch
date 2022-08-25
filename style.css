@@ -9,24 +9,53 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 button {
   background-color: #555;
-  border: solid #444 1px;
+  border: solid #333 1px;
   cursor: pointer;
   color: #fff;
   padding: 0.25em 0.75em;
 }
 
 button:hover {
-  background-color: #444;
+  background-color: #333;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  background: #777;
+  height: 3px;
+  margin: 1em 0.5em;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 100%;
+  width: 13px;
+  height: 13px;
+  background: #333;
+  cursor: pointer;
+}
+
+input[type='color'] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
 }
 
 #toolbar, #canvas {
   background-color: #777;
-  border: solid #444 2px;
+  border: solid #333 2px;
   padding: 1em;
 }
 
@@ -40,12 +69,22 @@ button:hover {
 }
 
 .tool-container-header button {
-  border: solid #444 1px;
+  border: solid #333 1px;
   border-bottom: none;
 }
 
 .tool-container-body {
-  border: solid #444 1px;
+  border: solid #333 1px;
+}
+
+.tool-container-body button {
+  margin: 0.5em;
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.tool-container-body button:hover {
+  background-color: #777;
 }
 
 #toolbar {
@@ -56,7 +95,7 @@ button:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 #color-container {
@@ -69,7 +108,7 @@ button:hover {
           flex-direction: column;
 }
 
-#color-palette {
+#color-palette-body {
   width: calc(18px * 8 - 2px);
   /* (palettewidth + gap) * number - gap */
   max-width: calc(18px * 8 - 2px);
@@ -94,6 +133,21 @@ button:hover {
   border: solid grey 2px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+#grid-sizer-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#grid-sizer-container label {
+  color: white;
+  text-align: center;
 }
 
 #canvas {
@@ -122,15 +176,5 @@ button:hover {
 
 .pixel:hover {
   background-color: #aaa;
-}
-
-input[type='color'] {
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background-color: transparent;
-  border: none;
-  width: 50px;
-  height: 50px;
 }
 /*# sourceMappingURL=style.css.map */

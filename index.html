@@ -11,23 +11,36 @@
 <body>
     <div id="pix-sketch">
         <div id="toolbar">
-            <div id="color-container">
-                <input type="color" name="color-picker" id="color-picker">
-                <div class="tool-container">
-                    <div class="tool-container-header">
-                        <button onclick="addToPalette()">+</button>
-                        <button onclick="removeFromPalette()">x</button>
-                        <button onclick="clearPalette()">clear</button>
-                    </div>
-                    <div id='color-palette'class="tool-container-body">
-                        <!-- <div id="color-palette">
-                            
-                        </div> -->
-                    </div>
+            <div id="" class="tool-container">
+                <div class="tool-container-header">
+                    <button>Switch</button>
+                </div>
+                <div class="tool-container-body">
+                    <input type="color" name="color-picker" id="color-picker">
                 </div>
             </div>
-            <button onclick="promptGridSize()">Change grid size</button>
-            <button onclick="toggleGridLines()">Toggle grid lines</button>
+            <div id="color-palette-container" class="tool-container">
+                <div id="color-palette-header" class="tool-container-header">
+                    <button name="palette-add">+</button>
+                    <button name="palette-remove">x</button>
+                    <button name="palette-clear">clear</button>
+                </div>
+                <div id='color-palette-body'class="tool-container-body">
+
+                </div>
+            </div>
+            <div class="tool-container">
+                <div id="options-container" class="tool-container-body">
+                    <button name="toggle-grid-lines">Toggle grid lines</button>
+                </div>
+            </div>
+            <div class="tool-container">
+                <div id="grid-sizer-container" class="tool-container-body">
+                    <input type="range" name="grid-sizer" id="grid-sizer" min="1" max="64" step="1" value="16">
+                    <label for="grid-sizer">16 x 16</label>
+                    <button>Change grid size</button>
+                </div>
+            </div>           
         </div>
         <div id="canvas">
 
