@@ -3,6 +3,7 @@ let gridSize = 16;
 let color = '#000000';
 let isDrawingAllowed = false;
 
+// DOM-nodes stored in memory
 const nodes = {
     // Toolbar
     picker: {
@@ -71,11 +72,13 @@ function initEventListeners() {
 
 // Palette functions
 function addToPalette() {
-    const el = document.createElement('div');
-    el.classList.add('palette-item');
-    el.style['background-color'] = color;
-    el.setAttribute('data-hex', color)
-    el.addEventListener('click', e => {
+    // Create palette element
+    const paletteItem = document.createElement('div');
+    paletteItem.classList.add('palette-item');
+    paletteItem.style['background-color'] = color;
+    paletteItem.setAttribute('data-hex', color);
+    
+    paletteItem.addEventListener('click', e => {
         color = e.target.getAttribute('data-hex');
         nodes.picker.primary.value = color;
         if (nodes.palette.selectedPalette) nodes.palette.selectedPalette.classList.remove('selected-palette');
@@ -83,11 +86,10 @@ function addToPalette() {
         e.target.classList.add('selected-palette')
 
     })
-    el.addEventListener('contextmenu', e => {
-        e.preventDefault()
-        e.target.remove();
-    })
-    const child = nodes.palette.body.appendChild(el);
+
+    // Add node to DOM
+    const child = nodes.palette.body.appendChild(paletteItem);
+    // Update classlists and memory (nodes)
     if (nodes.palette.selectedPalette) nodes.palette.selectedPalette.classList.remove('selected-palette');
     nodes.palette.selectedPalette = child;
     child.classList.add('selected-palette');
@@ -95,6 +97,7 @@ function addToPalette() {
 
 function removeFromPalette() {
     if(nodes.palette.selectedPalette) {
+        // Remove from DOM, then from nodes
         nodes.palette.selectedPalette.remove();
         delete nodes.palette.selectedPalette;
     }
