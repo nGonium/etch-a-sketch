@@ -24,6 +24,10 @@ button:hover {
   background-color: #333;
 }
 
+button .selected {
+  background-color: #777;
+}
+
 input[type='range'] {
   -webkit-appearance: none;
   background: #777;
@@ -53,10 +57,32 @@ input[type='color'] {
   height: 50px;
 }
 
+input[type='radio'] {
+  width: 0;
+  height: 0;
+}
+
+input[type='radio'] + label {
+  cursor: pointer;
+}
+
+input[type='radio'] + label > button {
+  pointer-events: none;
+  margin: 0;
+}
+
+input[type='radio']:checked + label > button {
+  background-color: #777;
+}
+
+input[type='radio'] + label:hover > button {
+  background-color: #777;
+}
+
 #toolbar, #canvas {
   background-color: #777;
   border: solid #333 2px;
-  padding: 1em;
+  padding: 0.5em;
 }
 
 .tool-container {
@@ -75,10 +101,10 @@ input[type='color'] {
 
 .tool-container-body {
   border: solid #333 1px;
+  padding: 2px;
 }
 
 .tool-container-body button {
-  margin: 0.5em;
   background-color: #333;
   border-radius: 4px;
 }

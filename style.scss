@@ -19,6 +19,9 @@ button {
     &:hover {
         background-color: $pressed;
     }
+    & .selected {
+        background-color: $primary;
+    }
 }
 input[type='range'] {
     -webkit-appearance: none;
@@ -44,12 +47,29 @@ input[type='color'] {
     width: 50px;
     height: 50px;
 }
+input[type='radio'] {
+    width: 0;
+    height: 0;
+    &+label {
+        cursor: pointer;
+    }
+    &+label > button {
+        pointer-events: none;
+        margin: 0;
+    }
+    &:checked+label > button {
+        background-color: $primary;
+    }
+    &+label:hover > button {
+        background-color: $primary;
+    }
+}
 
 // Generic classes
 #toolbar, #canvas {
     background-color: $primary;
     border: solid $pressed 2px;
-    padding: 1em;
+    padding: 0.5em;
 }
 .tool-container {
     background-color: $secondary;
@@ -65,8 +85,9 @@ input[type='color'] {
 }
 .tool-container-body {
     border: solid $pressed 1px;
+    padding: 2px;
     button {
-        margin: 0.5em;
+        // margin: 0.5em;
         background-color: $pressed;
         border-radius: 4px;
         &:hover {

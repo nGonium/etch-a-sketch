@@ -1,5 +1,6 @@
 'use-strict'
 let gridSize = 16;
+let toolSelected = 'pen';
 let color = '#000000';
 let isDrawingAllowed = false;
 
@@ -14,6 +15,10 @@ const nodes = {
         buttonRemove: document.querySelector('button[name="palette-remove"'),
         buttonClear: document.querySelector('button[name="palette-clear"'),
         body: document.querySelector('#color-palette-body')
+    },
+    tools: {
+        penLabel: document.querySelector('label[for="pen"]'),
+        eraserLabel: document.querySelector('label[for="eraser"]')
     },
     gridSizer: {
         container: document.querySelector('#grid-sizer-container'),
@@ -44,6 +49,13 @@ function initEventListeners() {
     })
     nodes.palette.buttonClear.addEventListener('click', e => {
         clearPalette();
+    })
+    // Tools
+    nodes.tools.penLabel.addEventListener('click', e => {
+        toolSelected = 'pen';
+    })
+    nodes.tools.eraserLabel.addEventListener('click', e => {
+        toolSelected = 'eraser';
     })
     // Options
     nodes.options.toggleGridLines.addEventListener('click', e => {
@@ -130,9 +142,13 @@ function updateGrid() {
 function pixelEventListener(e) {
     if (isDrawingAllowed || e.type === 'mousedown') {
         const pixel = e.target;
-        pixel.style['background-color'] = color;
+        if (toolSelected === 'pen') {
+            pixel.style['background-color'] = color;
+        } else if (toolSelected === 'eraser') {
+            pixel.style.removeProperty('background-color')
+        }
     }
 }
-
+console.log(nodes);
 initEventListeners();
 updateGrid();
