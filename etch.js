@@ -8,7 +8,9 @@ let isDrawingAllowed = false;
 const nodes = {
     // Toolbar
     picker: {
-        primary: document.querySelector('#color-picker')
+        switch: document.querySelector('#color-picker-switch'),
+        primary: document.querySelector('#color-picker-primary'),
+        secondary: document.querySelector('#color-picker-secondary')
     },
     palette: {
         buttonAdd: document.querySelector('button[name="palette-add"'),
@@ -37,6 +39,11 @@ const nodes = {
 function initEventListeners() {
     // Toolbar
     // Color picker
+    nodes.picker.switch.addEventListener('click', e => {
+        nodes.picker.primary.value = nodes.picker.secondary.value;
+        nodes.picker.secondary.value = color;
+        color = nodes.picker.primary.value;
+    });
     nodes.picker.primary.addEventListener('input', e => {
         color = nodes.picker.primary.value;
     });
