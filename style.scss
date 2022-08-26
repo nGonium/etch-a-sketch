@@ -48,14 +48,13 @@ input[type='color'] {
     height: 50px;
 }
 input[type='radio'] {
-    width: 0;
-    height: 0;
+    display: none;
     &+label {
         cursor: pointer;
     }
     &+label > button {
         pointer-events: none;
-        margin: 0;
+        width: 100%;
     }
     &:checked+label > button {
         background-color: $primary;
@@ -86,6 +85,8 @@ input[type='radio'] {
 .tool-container-body {
     border: solid $pressed 1px;
     padding: 2px;
+    // width: calc(18px * 8 - 2px); /* (palettewidth + gap) * number - gap */
+    max-width: calc(18px * 8 - 2px);
     button {
         // margin: 0.5em;
         background-color: $pressed;
@@ -101,14 +102,14 @@ input[type='radio'] {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    // width: 150px;
 }
 #color-container {
     display: flex;
     flex-direction: column;
 }
 #color-palette-body {
-    width: calc(18px * 8 - 2px); /* (palettewidth + gap) * number - gap */
-    max-width: calc(18px * 8 - 2px);
+    
     min-height: calc(18px * 3 - 2px);
     display: flex;
     gap: 2px;
@@ -123,6 +124,16 @@ input[type='radio'] {
 .selected-palette {
     border: solid grey 2px;
     box-sizing: border-box;
+}
+#tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    button {
+        // Reduces chance of overflow
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 #grid-sizer-container {
     display: flex;
