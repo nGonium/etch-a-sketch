@@ -86,7 +86,8 @@ const nodes = {
     picker: {
         switch: document.querySelector('#color-picker-switch'),
         primary: document.querySelector('#color-picker-primary'),
-        secondary: document.querySelector('#color-picker-secondary')
+        secondary: document.querySelector('#color-picker-secondary'),
+        picker: document.querySelector('button[name="color-picker"')
     },
     palette: {
         buttonAdd: document.querySelector('button[name="palette-add"'),
@@ -126,6 +127,9 @@ function initEventListeners() {
     nodes.picker.primary.addEventListener('input', e => {
         color = nodes.picker.primary.value;
     });
+    nodes.picker.picker.addEventListener('click', e => {
+        toolSelected = 'picker';
+    })
     // Palette
     nodes.palette.buttonAdd.addEventListener('click', e => {
         addToPalette();
@@ -251,6 +255,10 @@ function pixelEventListener(e) {
             pixel.style['background-color'] = pixelColor.getRgbStr();
         } else if (toolSelected === 'random') {
             pixel.style['background-color'] = `rgb(${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}`;
+        } else if (toolSelected === 'picker') {
+            color = pixel.style['background-color'];
+            toolSelected = 'pen';
+            console.log(color);
         }
     }
 }
