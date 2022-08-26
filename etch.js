@@ -149,6 +149,9 @@ function initEventListeners() {
     nodes.tools.shadeMin.addEventListener('click', e => {
         toolSelected = 'shadeMin';
     })
+    nodes.tools.random.addEventListener('click', e => {
+        toolSelected = 'random';
+    })
     // Options
     nodes.options.toggleGridLines.addEventListener('click', e => {
         toggleGridLines();
@@ -246,6 +249,8 @@ function pixelEventListener(e) {
             let pixelColor = new Color('rgbStr', pixel.style['background-color'])
             pixelColor.addShade(false);
             pixel.style['background-color'] = pixelColor.getRgbStr();
+        } else if (toolSelected === 'random') {
+            pixel.style['background-color'] = `rgb(${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}`;
         }
     }
 }
